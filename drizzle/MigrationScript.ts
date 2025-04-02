@@ -14,7 +14,7 @@ async function migrateDbIfNeeded(db: SQLiteDatabase) {
   if (currentDbVersion === 0) {
     await db.execAsync(`
             PRAGMA journal_mode = 'wal';
-            CREATE TABLE ocr_texts (id TEXT PRIMARY KEY NOT NULL, text TEXT NOT NULL, created_at TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS ocr_texts (id TEXT PRIMARY KEY NOT NULL, text TEXT NOT NULL, created_at TEXT NOT NULL);
         `);
 
     currentDbVersion = 1;

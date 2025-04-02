@@ -9,14 +9,14 @@ import { FontAwesome } from "@expo/vector-icons";
 SplashScreen.preventAutoHideAsync();
 
 export function useLoadAssets() {
-  const sqliteDB = openDatabaseSync("my-ocr-app.db");
+  const expoDb = openDatabaseSync("my-ocr-app.db", { useNewConnection: true });
 
   const [hasLoadedFonts, loadingFontsError] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
 
-  useDrizzleStudio(sqliteDB);
+  useDrizzleStudio(expoDb);
 
   useEffect(() => {
     if (loadingFontsError) throw loadingFontsError;
